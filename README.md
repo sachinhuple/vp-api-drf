@@ -9,7 +9,7 @@ Python 3.8
 
 3] Install dependencies from requirements.txt
  
-     $ pin install -r requirements.txt
+     $ pip install -r requirements.txt
 4] Once all the libraries are installed successfully then run
 
      $ python manage.py makemigrations
