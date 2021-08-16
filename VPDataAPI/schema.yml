@@ -1,0 +1,485 @@
+openapi: 3.0.3
+info:
+  title: VivPro Project API
+  version: 1.0.0
+  description: This is VivPro data api
+paths:
+  /api/schema/:
+    get:
+      operationId: schema_retrieve
+      description: |-
+        OpenApi3 schema for this API. Format can be selected via content negotiation.
+
+        - YAML: application/vnd.oai.openapi
+        - JSON: application/vnd.oai.openapi+json
+      parameters:
+      - in: query
+        name: format
+        schema:
+          type: string
+          enum:
+          - json
+          - yaml
+      - in: query
+        name: lang
+        schema:
+          type: string
+          enum:
+          - af
+          - ar
+          - ar-dz
+          - ast
+          - az
+          - be
+          - bg
+          - bn
+          - br
+          - bs
+          - ca
+          - cs
+          - cy
+          - da
+          - de
+          - dsb
+          - el
+          - en
+          - en-au
+          - en-gb
+          - eo
+          - es
+          - es-ar
+          - es-co
+          - es-mx
+          - es-ni
+          - es-ve
+          - et
+          - eu
+          - fa
+          - fi
+          - fr
+          - fy
+          - ga
+          - gd
+          - gl
+          - he
+          - hi
+          - hr
+          - hsb
+          - hu
+          - hy
+          - ia
+          - id
+          - ig
+          - io
+          - is
+          - it
+          - ja
+          - ka
+          - kab
+          - kk
+          - km
+          - kn
+          - ko
+          - ky
+          - lb
+          - lt
+          - lv
+          - mk
+          - ml
+          - mn
+          - mr
+          - my
+          - nb
+          - ne
+          - nl
+          - nn
+          - os
+          - pa
+          - pl
+          - pt
+          - pt-br
+          - ro
+          - ru
+          - sk
+          - sl
+          - sq
+          - sr
+          - sr-latn
+          - sv
+          - sw
+          - ta
+          - te
+          - tg
+          - th
+          - tk
+          - tr
+          - tt
+          - udm
+          - uk
+          - ur
+          - uz
+          - vi
+          - zh-hans
+          - zh-hant
+      tags:
+      - schema
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/vnd.oai.openapi:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/yaml:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/vnd.oai.openapi+json:
+              schema:
+                type: object
+                additionalProperties: {}
+            application/json:
+              schema:
+                type: object
+                additionalProperties: {}
+          description: ''
+  /api/v1/song-api/song/:
+    get:
+      operationId: v1_song_api_song_list
+      description: ''
+      parameters:
+      - name: p
+        required: false
+        in: query
+        description: A page number within the paginated result set.
+        schema:
+          type: integer
+      - name: records
+        required: false
+        in: query
+        description: Number of results to return per page.
+        schema:
+          type: integer
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PaginatedSongList'
+          description: ''
+    post:
+      operationId: v1_song_api_song_create
+      description: ''
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Song'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Song'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Song'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '201':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Song'
+          description: ''
+  /api/v1/song-api/song/{index}/:
+    get:
+      operationId: v1_song_api_song_retrieve
+      description: ''
+      parameters:
+      - in: path
+        name: index
+        schema:
+          type: integer
+        description: A unique integer value identifying this song.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Song'
+          description: ''
+    put:
+      operationId: v1_song_api_song_update
+      description: ''
+      parameters:
+      - in: path
+        name: index
+        schema:
+          type: integer
+        description: A unique integer value identifying this song.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Song'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/Song'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/Song'
+        required: true
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Song'
+          description: ''
+    patch:
+      operationId: v1_song_api_song_partial_update
+      description: ''
+      parameters:
+      - in: path
+        name: index
+        schema:
+          type: integer
+        description: A unique integer value identifying this song.
+        required: true
+      tags:
+      - v1
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/PatchedSong'
+          application/x-www-form-urlencoded:
+            schema:
+              $ref: '#/components/schemas/PatchedSong'
+          multipart/form-data:
+            schema:
+              $ref: '#/components/schemas/PatchedSong'
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Song'
+          description: ''
+    delete:
+      operationId: v1_song_api_song_destroy
+      description: ''
+      parameters:
+      - in: path
+        name: index
+        schema:
+          type: integer
+        description: A unique integer value identifying this song.
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '204':
+          description: No response body
+components:
+  schemas:
+    PaginatedSongList:
+      type: object
+      properties:
+        count:
+          type: integer
+          example: 123
+        next:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?p=4
+        previous:
+          type: string
+          nullable: true
+          format: uri
+          example: http://api.example.org/accounts/?p=2
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/Song'
+    PatchedSong:
+      type: object
+      properties:
+        index:
+          type: integer
+          readOnly: true
+        id:
+          type: string
+          maxLength: 64
+        title:
+          type: string
+          maxLength: 255
+        danceability:
+          type: number
+          format: float
+        energy:
+          type: number
+          format: float
+        key:
+          type: integer
+        loudness:
+          type: number
+          format: float
+        mode:
+          type: boolean
+        acousticness:
+          type: string
+          format: decimal
+          pattern: ^\d{0,40}(\.\d{0,10})?$
+        instrumentalness:
+          type: string
+          format: decimal
+          pattern: ^\d{0,40}(\.\d{0,10})?$
+        liveness:
+          type: number
+          format: float
+        valence:
+          type: number
+          format: float
+        tempo:
+          type: number
+          format: float
+        duration_ms:
+          type: integer
+        time_signature:
+          type: integer
+        num_bars:
+          type: integer
+        num_sections:
+          type: integer
+        num_segments:
+          type: integer
+        db_class:
+          type: integer
+        star_rating:
+          type: integer
+          maximum: 5
+          minimum: 1
+    Song:
+      type: object
+      properties:
+        index:
+          type: integer
+          readOnly: true
+        id:
+          type: string
+          maxLength: 64
+        title:
+          type: string
+          maxLength: 255
+        danceability:
+          type: number
+          format: float
+        energy:
+          type: number
+          format: float
+        key:
+          type: integer
+        loudness:
+          type: number
+          format: float
+        mode:
+          type: boolean
+        acousticness:
+          type: string
+          format: decimal
+          pattern: ^\d{0,40}(\.\d{0,10})?$
+        instrumentalness:
+          type: string
+          format: decimal
+          pattern: ^\d{0,40}(\.\d{0,10})?$
+        liveness:
+          type: number
+          format: float
+        valence:
+          type: number
+          format: float
+        tempo:
+          type: number
+          format: float
+        duration_ms:
+          type: integer
+        time_signature:
+          type: integer
+        num_bars:
+          type: integer
+        num_sections:
+          type: integer
+        num_segments:
+          type: integer
+        db_class:
+          type: integer
+        star_rating:
+          type: integer
+          maximum: 5
+          minimum: 1
+      required:
+      - acousticness
+      - danceability
+      - db_class
+      - duration_ms
+      - energy
+      - id
+      - index
+      - instrumentalness
+      - key
+      - liveness
+      - loudness
+      - mode
+      - num_bars
+      - num_sections
+      - num_segments
+      - tempo
+      - time_signature
+      - title
+      - valence
+  securitySchemes:
+    basicAuth:
+      type: http
+      scheme: basic
+    cookieAuth:
+      type: apiKey
+      in: cookie
+      name: Session
