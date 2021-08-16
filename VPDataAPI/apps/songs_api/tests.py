@@ -5,7 +5,7 @@ from rest_framework import status
 from django.urls import reverse
 
 # using DRF provided APITestCase
-class StudentAPITestCase(APITestCase):
+class SongAPITestCase(APITestCase):
     print("Testing song api using drf TestCase")
     header = {}
 
@@ -36,6 +36,10 @@ class StudentAPITestCase(APITestCase):
         response = self.client.get('/api/v1/song-api/song/1/', {}, Headers=self.header, secure=True)
         self.assertEqual(response.status_code, 200)
 
+    def test_retrieve_method(self):
+        response = self.client.get('/api/v1/song-api/song-details/This%20is%20test%20title/', {}, Headers=self.header, secure=True)
+        self.assertEqual(response.status_code, 200)
+
     def test_get_list_method(self):
 
         response = self.client.get('/api/v1/song-api/song/?p=1', {}, Headers=self.header, secure=True)
@@ -53,7 +57,7 @@ class StudentAPITestCase(APITestCase):
                     "energy": 0.256,
                     "key": 0,
                     "loudness": -9.433,
-                    "mode": False,
+                    "mode": True,
                     "acousticness": "0.6420000000",
                     "instrumentalness": "0.0156000000",
                     "liveness": 0.104,

@@ -205,6 +205,29 @@ paths:
               schema:
                 $ref: '#/components/schemas/Song'
           description: ''
+  /api/v1/song-api/song-details/{title}/:
+    get:
+      operationId: v1_song_api_song_details_retrieve
+      description: ''
+      parameters:
+      - in: path
+        name: title
+        schema:
+          type: string
+        required: true
+      tags:
+      - v1
+      security:
+      - cookieAuth: []
+      - basicAuth: []
+      - {}
+      responses:
+        '200':
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Song'
+          description: ''
   /api/v1/song-api/song/{index}/:
     get:
       operationId: v1_song_api_song_retrieve

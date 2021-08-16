@@ -1,5 +1,4 @@
 from rest_framework import serializers
-from django.core.validators import MaxValueValidator, MinValueValidator
 from .models import Song
 
 
@@ -14,4 +13,3 @@ class SongSerializer(serializers.ModelSerializer):
                   'num_bars', 'num_sections', 'num_segments', 'db_class', 'star_rating']
         # fields = '__all__'
 
-        # validators = [MinValueValidator(1), MaxValueValidator(5)]
